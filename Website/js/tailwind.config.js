@@ -10,7 +10,7 @@
             gold: '#dbc074',
             'gold-light': '#e2c97e',
             mist: '#1a1a1a',
-            'mist-2': '#1c1919',
+            'mist-2': '#515050',
             slate: '#888888',
           },
           fontFamily: {
