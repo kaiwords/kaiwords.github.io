@@ -3,4 +3,4 @@
 This is my personal website.
 
 ### Projects
-- [Responsive design]{./projects/Responsive-design}
+- [Responsive design](https://kaiwords.github.io/projects/Responsive-design)
