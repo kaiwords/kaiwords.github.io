@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
+</head>
+<body class="bg-slate-200 flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded shadow-sm max-w-md w-full">
+  <h1 class="text-blue-800 font-bold text-xl ">Todo List</h1>
+
+  <form method="GET">
+    <div class="flex gap-4 my-2">
+    <input class="border p-2 rounded flex-1" type="text" name="task" placeholder="Add a new task..." class="flex-1 p-2 border border-gray-300 rounded" />
+    <input type="submit" value="Add" class="py-2 px-4 bg-black text-white rounded" />
+    </div>
+
+    <!-- Render existing tasks as checkboxes -->
+    <ul>
+      <li class="p-1 hover:bg-gray-200"><input  type="checkbox"/> Task 1</li>
+      <li class="p-1 hover:bg-gray-200"><input type="checkbox"/> Task 2</li>
+    </ul>
+  </form>
+  </div>
+</body>
+</html>
