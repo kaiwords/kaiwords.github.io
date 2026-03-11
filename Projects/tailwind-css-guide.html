@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS Complete Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            body { background: white; }
+            .page-break { page-break-after: always; }
+            pre { background: #f3f4f6 !important; padding: 12px; border-radius: 6px; }
+        }
+        code { font-family: 'Courier New', monospace; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl font-bold mb-4">Tailwind CSS</h1>
+            <p class="text-xl opacity-90">A Utility-First CSS Framework for Rapid UI Development</p>
+            <p class="text-sm opacity-75 mt-4">Complete Guide • March 2026</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+
+        <!-- Table of Contents -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm border-l-4 border-blue-600">
+            <h2 class="text-2xl font-bold mb-6">Table of Contents</h2>
+            <ol class="space-y-2 text-blue-600 font-medium">
+                <li>1. What is Tailwind CSS?</li>
+                <li>2. Installation & Setup</li>
+                <li>3. Core Concepts</li>
+                <li>4. Common Utilities</li>
+                <li>5. Responsive Design</li>
+                <li>6. Component Building</li>
+                <li>7. Best Practices</li>
+                <li>8. Utility Shortcuts Cheat Sheet</li>
+                <li>9. Prefixes & Modifiers</li>
+                <li>10. Transforms</li>
+                <li>11. Transitions & Animations</li>
+                <li>12. Positioning</li>
+                <li>13. Shadows & Effects</li>
+            </ol>
+        </section>
+
+        <!-- Section 1 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">1. What is Tailwind CSS?</h2>
+            <div class="space-y-4 text-gray-700">
+                <p><strong>Tailwind CSS</strong> is a utility-first CSS framework that helps you build modern user interfaces without leaving your HTML.</p>
+                
+                <h3 class="text-xl font-semibold mt-6 mb-2">Key Features:</h3>
+                <ul class="space-y-2 ml-6">
+                    <li class="flex items-start"><span class="text-blue-600 mr-3">✓</span> <span><strong>Utility-First:</strong> Pre-built utility classes for styling</span></li>
+                    <li class="flex items-start"><span class="text-blue-600 mr-3">✓</span> <span><strong>Responsive:</strong> Built-in responsive design patterns</span></li>
+                    <li class="flex items-start"><span class="text-blue-600 mr-3">✓</span> <span><strong>Customizable:</strong> Easy theme customization</span></li>
+                    <li class="flex items-start"><span class="text-blue-600 mr-3">✓</span> <span><strong>Production-Ready:</strong> PurgeCSS for smaller file sizes</span></li>
+                    <li class="flex items-start"><span class="text-blue-600 mr-3">✓</span> <span><strong>Low-Level:</strong> No opinionated component patterns</span></li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-2">vs Traditional CSS:</h3>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="bg-red-50 p-4 rounded">
+                        <p class="font-semibold text-red-700 mb-2">❌ Traditional CSS</p>
+                        <pre class="text-xs bg-white p-2 rounded border border-red-200"><code>.btn-primary {
+  background: blue;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+}</code></pre>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded">
+                        <p class="font-semibold text-green-700 mb-2">✓ Tailwind CSS</p>
+                        <pre class="text-xs bg-white p-2 rounded border border-green-200"><code>&lt;button class="bg-blue-500 
+  text-white px-4 py-2 
+  rounded"&gt;
+  Click me
+&lt;/button&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">2. Installation & Setup</h2>
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold">Using NPM:</h3>
+                <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code>npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p</code></pre>
+
+                <h3 class="text-xl font-semibold mt-6">CDN (Quick Start):</h3>
+                <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></pre>
+
+                <h3 class="text-xl font-semibold mt-6">Configuration (tailwind.config.js):</h3>
+                <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code>module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#3B82F6',
+      }
+    }
+  },
+  plugins: []
+};</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">3. Core Concepts</h2>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-xl font-semibold mb-2">Utility Classes</h3>
+                    <p class="text-gray-700 mb-3">Single-purpose classes that do one thing well:</p>
+                    <div class="bg-blue-50 p-4 rounded">
+                        <code class="text-sm">m-4 p-8 text-center bg-blue-500 text-white rounded-lg</code>
+                        <p class="text-xs text-gray-600 mt-2">margin: 1rem | padding: 2rem | text-align: center | background: blue | border-radius: 0.5rem</p>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-xl font-semibold mb-2">Spacing Scale</h3>
+                    <p class="text-gray-700 mb-3">Consistent spacing system (0.25rem per unit):</p>
+                    <div class="grid grid-cols-4 gap-2 text-xs">
+                        <div>m-1 (0.25rem)</div>
+                        <div>m-2 (0.5rem)</div>
+                        <div>m-4 (1rem)</div>
+                        <div>m-8 (2rem)</div>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-xl font-semibold mb-2">Color Palette</h3>
+                    <p class="text-gray-700 mb-3">9 color scales (50-900) for each color:</p>
+                    <div class="flex gap-1 mt-3">
+                        <div class="w-6 h-6 bg-blue-50 border border-gray-300 rounded text-xs flex items-center justify-center">50</div>
+                        <div class="w-6 h-6 bg-blue-100 border border-gray-300 rounded text-xs flex items-center justify-center">100</div>
+                        <div class="w-6 h-6 bg-blue-500 border border-gray-300 rounded text-xs flex items-center justify-center">500</div>
+                        <div class="w-6 h-6 bg-blue-900 border border-gray-300 rounded text-xs flex items-center justify-center">900</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">4. Common Utilities Reference</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-semibold text-lg mb-3 text-gray-800">Layout & Flexbox</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">flex</code> - Display flex</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">flex-row</code> - Flex direction row</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">justify-center</code> - Horizontal center</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">items-center</code> - Vertical center</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">gap-4</code> - Space between items</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">w-full</code> - Width 100%</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-lg mb-3 text-gray-800">Typography</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">text-lg</code> - Font size large</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">font-bold</code> - Font weight bold</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">text-center</code> - Text align center</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">text-gray-600</code> - Text color</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">leading-relaxed</code> - Line height</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">tracking-wide</code> - Letter spacing</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-lg mb-3 text-gray-800">Spacing</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">m-4</code> - Margin 1rem</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">p-8</code> - Padding 2rem</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">mt-4</code> - Margin top</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">px-4</code> - Padding left & right</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">ml-auto</code> - Margin auto</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">space-y-4</code> - Y-axis gap</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-lg mb-3 text-gray-800">Backgrounds & Borders</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">bg-blue-500</code> - Background color</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">border</code> - Add border</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">rounded-lg</code> - Border radius</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">shadow-lg</code> - Box shadow</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">opacity-50</code> - Opacity</div>
+                        <div class="bg-gray-100 p-3 rounded"><code class="text-blue-600">border-2</code> - Border width</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">5. Responsive Design</h2>
+            
+            <p class="text-gray-700 mb-4">Tailwind uses mobile-first breakpoints. Prefix utilities with breakpoint names:</p>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="text-left p-3">Breakpoint</th>
+                            <th class="text-left p-3">Prefix</th>
+                            <th class="text-left p-3">Min Width</th>
+                            <th class="text-left p-3">CSS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-3">Mobile</td>
+                            <td class="p-3">-</td>
+                            <td class="p-3">0px</td>
+                            <td class="p-3">@media (max-width: 640px)</td>
+                        </tr>
+                        <tr class="border-b bg-blue-50">
+                            <td class="p-3">Small</td>
+                            <td class="p-3 font-mono text-blue-600">sm:</td>
+                            <td class="p-3">640px</td>
+                            <td class="p-3">@media (min-width: 640px)</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-3">Medium</td>
+                            <td class="p-3 font-mono text-blue-600">md:</td>
+                            <td class="p-3">768px</td>
+                            <td class="p-3">@media (min-width: 768px)</td>
+                        </tr>
+                        <tr class="border-b bg-blue-50">
+                            <td class="p-3">Large</td>
+                            <td class="p-3 font-mono text-blue-600">lg:</td>
+                            <td class="p-3">1024px</td>
+                            <td class="p-3">@media (min-width: 1024px)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Extra Large</td>
+                            <td class="p-3 font-mono text-blue-600">xl:</td>
+                            <td class="p-3">1280px</td>
+                            <td class="p-3">@media (min-width: 1280px)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="font-semibold text-lg mb-3">Example:</h3>
+            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code>&lt;div class="w-full md:w-1/2 lg:w-1/3"&gt;
+  Full width on mobile
+  50% on tablets
+  33% on desktop
+&lt;/div&gt;</code></pre>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">6. Component Building</h2>
+            
+            <h3 class="font-semibold text-lg mb-4">Example: Button Component</h3>
+            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto mb-6"><code>&lt;!-- Basic Button --&gt;
+&lt;button class="px-4 py-2 bg-blue-500 text-white 
+  rounded-lg hover:bg-blue-600 
+  transition duration-200"&gt;
+  Click me
+&lt;/button&gt;</code></pre>
+
+            <h3 class="font-semibold text-lg mb-4">Example: Card Component</h3>
+            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto mb-6"><code>&lt;div class="bg-white rounded-lg shadow-md p-6 
+  max-w-sm mx-auto"&gt;
+  &lt;h3 class="text-lg font-bold text-gray-800 mb-2"&gt;Title&lt;/h3&gt;
+  &lt;p class="text-gray-600 text-sm mb-4"&gt;Description&lt;/p&gt;
+  &lt;button class="w-full bg-blue-500 text-white py-2 
+    rounded-lg hover:bg-blue-600"&gt;
+    Action
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3 class="font-semibold text-lg mb-4">Using @apply for Reusable Styles</h3>
+            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code>/* In your CSS file */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-500 text-white 
+           rounded-lg hover:bg-blue-600 
+           transition duration-200;
+  }
+}
+
+/* In HTML */
+&lt;button class="btn-primary"&gt;Click me&lt;/button&gt;</code></pre>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">7. Best Practices</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded">
+                    <h3 class="font-semibold text-green-800 mb-2">✓ DO</h3>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>• Use utility classes for rapid prototyping</li>
+                        <li>• Extract repeated patterns with @apply or components</li>
+                        <li>• Organize classes with meaningful line breaks</li>
+                        <li>• Use responsive prefixes consistently</li>
+                        <li>• Leverage the Tailwind plugin ecosystem</li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-l-4 border-red-600 p-4 rounded">
+                    <h3 class="font-semibold text-red-800 mb-2">✗ DON'T</h3>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>• Don't overuse arbitrary values (use config instead)</li>
+                        <li>• Don't nest Tailwind classes too deeply</li>
+                        <li>• Don't ignore the spacing scale (use consistent values)</li>
+                        <li>• Don't forget PurgeCSS in production</li>
+                        <li>• Don't mix utility classes with custom CSS poorly</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                    <h3 class="font-semibold text-blue-800 mb-2">📌 Pro Tips</h3>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>• Use VS Code extension for autocomplete</li>
+                        <li>• Create custom colors in tailwind.config.js</li>
+                        <li>• Use opacity modifiers: bg-blue-500/50</li>
+                        <li>• Combine with dark mode: dark:bg-gray-900</li>
+                        <li>• Use Tailwind UI or Headless UI for components</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Utility Shortcuts -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">8. Utility Shortcuts Cheat Sheet</h2>
+            
+            <p class="text-gray-700 mb-6">Tailwind utilities are shortcuts for CSS properties. Here are the most commonly used ones:</p>
+            
+            <div class="space-y-6">
+                <!-- Background & Colors -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🎨 Background & Colors</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">bg-white</code>
+                            <p class="text-xs text-gray-600 mt-1">background-color: white;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">text-gray-700</code>
+                            <p class="text-xs text-gray-600 mt-1">color: #374151;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">border-2</code>
+                            <p class="text-xs text-gray-600 mt-1">border-width: 2px;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">border-red-500</code>
+                            <p class="text-xs text-gray-600 mt-1">border-color: #ef4444;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">opacity-50</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 0.5;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-lg</code>
+                            <p class="text-xs text-gray-600 mt-1">box-shadow: 0 10px 15px rgba(...);</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spacing -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📏 Spacing (Margin & Padding)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">m-4</code>
+                            <p class="text-xs text-gray-600 mt-1">margin: 1rem; (16px)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">p-8</code>
+                            <p class="text-xs text-gray-600 mt-1">padding: 2rem; (32px)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">mt-4</code>
+                            <p class="text-xs text-gray-600 mt-1">margin-top: 1rem;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">px-8</code>
+                            <p class="text-xs text-gray-600 mt-1">padding-left & right: 2rem;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">mb-0</code>
+                            <p class="text-xs text-gray-600 mt-1">margin-bottom: 0;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">space-y-4</code>
+                            <p class="text-xs text-gray-600 mt-1">gap between y-axis children: 1rem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">✍️ Typography</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">text-lg</code>
+                            <p class="text-xs text-gray-600 mt-1">font-size: 1.125rem; (18px)</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">font-bold</code>
+                            <p class="text-xs text-gray-600 mt-1">font-weight: 700;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">text-center</code>
+                            <p class="text-xs text-gray-600 mt-1">text-align: center;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">leading-relaxed</code>
+                            <p class="text-xs text-gray-600 mt-1">line-height: 1.625;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">tracking-wide</code>
+                            <p class="text-xs text-gray-600 mt-1">letter-spacing: 0.05em;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">italic</code>
+                            <p class="text-xs text-gray-600 mt-1">font-style: italic;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layout & Display -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📐 Layout & Display</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">flex</code>
+                            <p class="text-xs text-gray-600 mt-1">display: flex;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">grid</code>
+                            <p class="text-xs text-gray-600 mt-1">display: grid;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">flex-col</code>
+                            <p class="text-xs text-gray-600 mt-1">flex-direction: column;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">justify-center</code>
+                            <p class="text-xs text-gray-600 mt-1">justify-content: center;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">items-center</code>
+                            <p class="text-xs text-gray-600 mt-1">align-items: center;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">gap-4</code>
+                            <p class="text-xs text-gray-600 mt-1">gap: 1rem;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sizing -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📦 Sizing</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">w-full</code>
+                            <p class="text-xs text-gray-600 mt-1">width: 100%;</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">h-32</code>
+                            <p class="text-xs text-gray-600 mt-1">height: 8rem; (128px)</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">max-w-sm</code>
+                            <p class="text-xs text-gray-600 mt-1">max-width: 24rem; (384px)</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">min-h-screen</code>
+                            <p class="text-xs text-gray-600 mt-1">min-height: 100vh;</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">w-1/2</code>
+                            <p class="text-xs text-gray-600 mt-1">width: 50%;</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">w-1/3</code>
+                            <p class="text-xs text-gray-600 mt-1">width: 33.333333%;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Borders & Corners -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🎯 Borders & Corners</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">rounded</code>
+                            <p class="text-xs text-gray-600 mt-1">border-radius: 0.25rem;</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">rounded-lg</code>
+                            <p class="text-xs text-gray-600 mt-1">border-radius: 0.5rem;</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">rounded-full</code>
+                            <p class="text-xs text-gray-600 mt-1">border-radius: 9999px;</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">border</code>
+                            <p class="text-xs text-gray-600 mt-1">border: 1px solid;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Combinations -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-300 mt-8">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-800">💡 Common Combinations:</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded border-l-4 border-blue-500">
+                            <p class="text-sm font-mono text-blue-600 mb-1">bg-blue-500 text-white px-4 py-2 rounded-lg</p>
+                            <p class="text-xs text-gray-600">A styled button with background, text color, padding, and rounded corners</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border-l-4 border-green-500">
+                            <p class="text-sm font-mono text-green-600 mb-1">flex flex-col gap-4 items-center justify-center</p>
+                            <p class="text-xs text-gray-600">Vertically stacked, centered content with 1rem gap between items</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border-l-4 border-purple-500">
+                            <p class="text-sm font-mono text-purple-600 mb-1">w-full md:w-1/2 lg:max-w-xl m-4 p-6</p>
+                            <p class="text-xs text-gray-600">Responsive width container with padding and margin</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border-l-4 border-orange-500">
+                            <p class="text-sm font-mono text-orange-600 mb-1">bg-white rounded-lg shadow-md border border-gray-200</p>
+                            <p class="text-xs text-gray-600">Card-like container with background, rounded corners, shadow, and border</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Prefixes & Modifiers -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">9. Prefixes & Modifiers</h2>
+            
+            <div class="space-y-8">
+                <!-- Responsive Breakpoints -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🔌 Responsive Breakpoints</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-left p-3">Prefix</th>
+                                    <th class="text-left p-3">Breakpoint</th>
+                                    <th class="text-left p-3">Min Width</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b"><td class="p-3 font-mono text-blue-600">-</td><td class="p-3">Mobile First</td><td class="p-3">0px</td></tr>
+                                <tr class="border-b bg-blue-50"><td class="p-3 font-mono text-blue-600">sm:</td><td class="p-3">Small</td><td class="p-3">640px</td></tr>
+                                <tr class="border-b"><td class="p-3 font-mono text-blue-600">md:</td><td class="p-3">Medium</td><td class="p-3">768px</td></tr>
+                                <tr class="border-b bg-blue-50"><td class="p-3 font-mono text-blue-600">lg:</td><td class="p-3">Large</td><td class="p-3">1024px</td></tr>
+                                <tr class="border-b"><td class="p-3 font-mono text-blue-600">xl:</td><td class="p-3">Extra Large</td><td class="p-3">1280px</td></tr>
+                                <tr><td class="p-3 font-mono text-blue-600">2xl:</td><td class="p-3">2X Large</td><td class="p-3">1536px</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- State Prefixes -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">✨ Interactive States</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">hover:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">focus:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">active:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">disabled:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">group-hover:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">focus-within:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">focus-visible:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">visited:</code></div>
+                        <div class="bg-purple-100 p-3 rounded"><code class="text-purple-700 text-sm font-mono">target:</code></div>
+                    </div>
+                </div>
+
+                <!-- Form States -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📝 Form States</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">checked:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">indeterminate:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">default:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">valid:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">invalid:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">in-range:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">out-of-range:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">required:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">optional:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">read-only:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">placeholder-shown:</code></div>
+                        <div class="bg-green-100 p-3 rounded"><code class="text-green-700 text-sm font-mono">autofill:</code></div>
+                    </div>
+                </div>
+
+                <!-- Dark Mode & Theme -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🌙 Dark Mode & Theme</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="bg-gray-800 text-white p-3 rounded"><code class="text-gray-300 text-sm font-mono">dark:</code></div>
+                    </div>
+                </div>
+
+                <!-- Child & Sibling Selectors -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">👥 Grouping & Sibling Selectors</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">group:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">group-hover:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">group-focus:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">peer:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">peer-hover:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">peer-focus:</code></div>
+                        <div class="bg-orange-100 p-3 rounded"><code class="text-orange-700 text-sm font-mono">peer-checked:</code></div>
+                    </div>
+                </div>
+
+                <!-- Child Position -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🔢 Child Position Selectors</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">first:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">last:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">only:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">odd:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">even:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">first-of-type:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">last-of-type:</code></div>
+                        <div class="bg-cyan-100 p-3 rounded"><code class="text-cyan-700 text-sm font-mono">only-of-type:</code></div>
+                    </div>
+                </div>
+
+                <!-- Arbitrary Values -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">💎 Arbitrary Values & Custom Selectors</h3>
+                    <div class="space-y-2">
+                        <div class="bg-indigo-100 p-3 rounded"><code class="text-indigo-700 text-sm font-mono">[...]</code> - Use arbitrary values</div>
+                        <div class="bg-indigo-100 p-3 rounded"><code class="text-indigo-700 text-sm font-mono">[&>*]:</code> - Direct child selector</div>
+                        <div class="bg-indigo-100 p-3 rounded"><code class="text-indigo-700 text-sm font-mono">[&_p]:</code> - Descendant selector</div>
+                    </div>
+                </div>
+
+                <!-- Usage Examples -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-lg mb-3">📌 Combined Prefix Examples:</h3>
+                    <pre class="bg-gray-900 text-green-400 p-3 rounded-lg overflow-x-auto text-xs"><code>&lt;!-- Responsive + State --&gt;
+&lt;button class="bg-blue-500 hover:bg-blue-600 
+  md:hover:bg-blue-700"&gt;Button&lt;/button&gt;
+
+&lt;!-- Dark Mode + Responsive --&gt;
+&lt;div class="bg-white dark:bg-gray-900 
+  md:dark:bg-gray-800"&gt;Content&lt;/div&gt;
+
+&lt;!-- Group + Responsive --&gt;
+&lt;div class="group md:hover:bg-gray-100"&gt;
+  &lt;h3 class="group-hover:text-blue-500"&gt;Title&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Transforms -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">10. Transforms</h2>
+            
+            <p class="text-gray-700 mb-6">Transform utilities let you scale, rotate, and skew elements. All transforms are hardware-accelerated for smooth performance.</p>
+            
+            <div class="space-y-6">
+                <!-- Rotate -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🔄 Rotate</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">rotate-0</code>
+                            <p class="text-xs text-gray-600 mt-1">No rotation</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">rotate-45</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: rotate(45deg);</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">rotate-90</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: rotate(90deg);</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">-rotate-45</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: rotate(-45deg);</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">rotate-180</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: rotate(180deg);</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">[rotate-12deg]</code>
+                            <p class="text-xs text-gray-600 mt-1">Custom rotation value</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scale -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📏 Scale</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-0</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: scale(0);</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-50</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: scale(0.5);</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-100</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: scale(1);</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-110</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: scale(1.1);</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-125</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: scale(1.25);</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-x-0</code>
+                            <p class="text-xs text-gray-600 mt-1">Scale only X axis</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">scale-y-75</code>
+                            <p class="text-xs text-gray-600 mt-1">Scale only Y axis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Translate -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">↔️ Translate</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">translate-x-0</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: translateX(0);</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">translate-x-4</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: translateX(1rem);</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">translate-y-4</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: translateY(1rem);</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">-translate-x-8</code>
+                            <p class="text-xs text-gray-600 mt-1">Negative translate X</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">translate-x-full</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: translateX(100%);</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">translate-y-1/2</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: translateY(50%);</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skew -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">⌂ Skew</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">skew-x-0</code>
+                            <p class="text-xs text-gray-600 mt-1">No skew</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">skew-x-3</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: skewX(3deg);</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">skew-y-3</code>
+                            <p class="text-xs text-gray-600 mt-1">transform: skewY(3deg);</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">-skew-x-6</code>
+                            <p class="text-xs text-gray-600 mt-1">Negative skew</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transform Origin -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">⭐ Transform Origin</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Controls the point around which transforms happen:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">origin-center</code>
+                            <p class="text-xs text-gray-600 mt-1">Default center point</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">origin-top</code>
+                            <p class="text-xs text-gray-600 mt-1">Top center</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">origin-right</code>
+                            <p class="text-xs text-gray-600 mt-1">Center right</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <code class="text-red-600 font-mono text-sm">origin-bottom-left</code>
+                            <p class="text-xs text-gray-600 mt-1">Bottom left corner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 11: Transitions & Animations -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">11. Transitions & Animations</h2>
+            
+            <p class="text-gray-700 mb-6">Control animations, transitions, and how elements move between states smoothly.</p>
+            
+            <div class="space-y-6">
+                <!-- Transition Property -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🔄 Transition Property</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Specify which CSS properties should animate:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition-none</code>
+                            <p class="text-xs text-gray-600 mt-1">transition: none;</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition-all</code>
+                            <p class="text-xs text-gray-600 mt-1">Animate all properties</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition</code>
+                            <p class="text-xs text-gray-600 mt-1">Default transitions</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition-colors</code>
+                            <p class="text-xs text-gray-600 mt-1">Animate color properties</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition-opacity</code>
+                            <p class="text-xs text-gray-600 mt-1">Animate opacity only</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">transition-transform</code>
+                            <p class="text-xs text-gray-600 mt-1">Animate transform only</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transition Duration -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">⏱️ Duration</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Control how long the transition takes:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-75</code>
+                            <p class="text-xs text-gray-600 mt-1">transition-duration: 75ms;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-100</code>
+                            <p class="text-xs text-gray-600 mt-1">100ms</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-150</code>
+                            <p class="text-xs text-gray-600 mt-1">150ms</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-200</code>
+                            <p class="text-xs text-gray-600 mt-1">200ms (common)</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-300</code>
+                            <p class="text-xs text-gray-600 mt-1">300ms</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-500</code>
+                            <p class="text-xs text-gray-600 mt-1">500ms</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-700</code>
+                            <p class="text-xs text-gray-600 mt-1">700ms</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">duration-1000</code>
+                            <p class="text-xs text-gray-600 mt-1">1000ms (1 second)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timing Function -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📈 Timing Function (Easing)</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Control the speed curve of the transition:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">ease-linear</code>
+                            <p class="text-xs text-gray-600 mt-1">Constant speed throughout</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">ease-in</code>
+                            <p class="text-xs text-gray-600 mt-1">Slow start, fast end</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">ease-out</code>
+                            <p class="text-xs text-gray-600 mt-1">Fast start, slow end (default)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">ease-in-out</code>
+                            <p class="text-xs text-gray-600 mt-1">Slow start and end</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animation -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">✨ Animation/Keyframes</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Built-in animations for common effects:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">animate-none</code>
+                            <p class="text-xs text-gray-600 mt-1">No animation</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">animate-spin</code>
+                            <p class="text-xs text-gray-600 mt-1">Continuous rotation</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">animate-ping</code>
+                            <p class="text-xs text-gray-600 mt-1">Scale up then fade out</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">animate-pulse</code>
+                            <p class="text-xs text-gray-600 mt-1">Fade in and out</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">animate-bounce</code>
+                            <p class="text-xs text-gray-600 mt-1">Bounce up and down</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animation Delay -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">⏲️ Animation Delay</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Delay before animation starts:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-75</code>
+                            <p class="text-xs text-gray-600 mt-1">animation-delay: 75ms;</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-100</code>
+                            <p class="text-xs text-gray-600 mt-1">100ms</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-150</code>
+                            <p class="text-xs text-gray-600 mt-1">150ms</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-200</code>
+                            <p class="text-xs text-gray-600 mt-1">200ms</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-300</code>
+                            <p class="text-xs text-gray-600 mt-1">300ms</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">delay-500</code>
+                            <p class="text-xs text-gray-600 mt-1">500ms</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transition Examples -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-lg mb-3">💡 Combined Examples:</h3>
+                    <pre class="bg-gray-900 text-green-400 p-3 rounded-lg overflow-x-auto text-xs"><code>&lt;!-- Smooth color transition on hover --&gt;
+&lt;button class="transition-colors duration-200 
+  bg-blue-500 hover:bg-blue-600"&gt;
+  Button
+&lt;/button&gt;
+
+&lt;!-- Scale animation with ease --&gt;
+&lt;div class="transition-transform duration-300 
+  ease-in-out hover:scale-110"&gt;
+  Hover to scale
+&lt;/div&gt;
+
+&lt;!-- Spinning loader --&gt;
+&lt;svg class="animate-spin w-8 h-8"&gt;...&lt;/svg&gt;
+
+&lt;!-- Delayed staggered animation --&gt;
+&lt;div class="animate-bounce delay-100"&gt;1&lt;/div&gt;
+&lt;div class="animate-bounce delay-200"&gt;2&lt;/div&gt;
+&lt;div class="animate-bounce delay-300"&gt;3&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 12: Positioning -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">12. Positioning</h2>
+            
+            <p class="text-gray-700 mb-6">Control how elements are positioned in the document flow.</p>
+            
+            <div class="space-y-6">
+                <!-- Position Values -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📍 Position Property</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Changes how element positioning works:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">static</code>
+                            <p class="text-xs text-gray-600 mt-1">Default, respects document flow</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">relative</code>
+                            <p class="text-xs text-gray-600 mt-1">Positioned relative to normal position</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">absolute</code>
+                            <p class="text-xs text-gray-600 mt-1">Removed from flow, relative to parent</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">fixed</code>
+                            <p class="text-xs text-gray-600 mt-1">Relative to viewport, stays in place</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">sticky</code>
+                            <p class="text-xs text-gray-600 mt-1">Relative, becomes fixed on scroll</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top, Right, Bottom, Left -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">↔️ Inset (Top/Right/Bottom/Left)</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Offset positioned elements from edges:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">top-0</code>
+                            <p class="text-xs text-gray-600 mt-1">top: 0;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">right-4</code>
+                            <p class="text-xs text-gray-600 mt-1">right: 1rem;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">bottom-8</code>
+                            <p class="text-xs text-gray-600 mt-1">bottom: 2rem;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">left-auto</code>
+                            <p class="text-xs text-gray-600 mt-1">left: auto;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">inset-0</code>
+                            <p class="text-xs text-gray-600 mt-1">All sides: 0 (stretch to fill)</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">-top-4</code>
+                            <p class="text-xs text-gray-600 mt-1">Negative offset (top: -1rem;)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Z-Index -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">📚 Z-Index (Stacking)</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Control element layering order:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-0</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 0;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-10</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 10;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-20</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 20;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-30</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 30;</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-40</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 40; (common for modals)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-50</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: 50; (highest common)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">z-auto</code>
+                            <p class="text-xs text-gray-600 mt-1">z-index: auto;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Float -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🌊 Float (Legacy)</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Float elements (use flexbox instead for modern layouts):</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">float-left</code>
+                            <p class="text-xs text-gray-600 mt-1">float: left;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">float-right</code>
+                            <p class="text-xs text-gray-600 mt-1">float: right;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">float-none</code>
+                            <p class="text-xs text-gray-600 mt-1">float: none;</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">clear-left</code>
+                            <p class="text-xs text-gray-600 mt-1">clear: left;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Positioning Examples -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-semibold text-lg mb-3">💡 Positioning Examples:</h3>
+                    <pre class="bg-gray-900 text-green-400 p-3 rounded-lg overflow-x-auto text-xs"><code>&lt;!-- Fixed header (stays at top) --&gt;
+&lt;header class="fixed top-0 left-0 right-0 z-50"&gt;...&lt;/header&gt;
+
+&lt;!-- Sticky navigation --&gt;
+&lt;nav class="sticky top-0 z-40 bg-white"&gt;...&lt;/nav&gt;
+
+&lt;!-- Absolutely positioned badge --&gt;
+&lt;div class="relative"&gt;
+  &lt;img /&gt;
+  &lt;span class="absolute top-0 right-0 
+    bg-red-500 rounded-full"&gt;3&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal/Overlay (fixed, full screen) --&gt;
+&lt;div class="fixed inset-0 bg-black/50 z-40"&gt;
+  &lt;div class="absolute inset-0 flex items-center 
+    justify-center"&gt;
+    &lt;div class="bg-white rounded-lg p-6"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 13: Shadows & Effects -->
+        <section class="mb-12 bg-white p-8 rounded-lg shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">13. Shadows & Effects</h2>
+            
+            <p class="text-gray-700 mb-6">Add depth and visual emphasis to elements with shadows, opacity, and other effects.</p>
+            
+            <div class="space-y-6">
+                <!-- Box Shadow -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🎭 Box Shadow</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Add drop shadows to elements:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-sm</code>
+                            <p class="text-xs text-gray-600 mt-1">Small subtle shadow</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow</code>
+                            <p class="text-xs text-gray-600 mt-1">Default shadow</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-md</code>
+                            <p class="text-xs text-gray-600 mt-1">Medium shadow</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-lg</code>
+                            <p class="text-xs text-gray-600 mt-1">Large shadow (common for cards)</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-xl</code>
+                            <p class="text-xs text-gray-600 mt-1">Extra large shadow</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-2xl</code>
+                            <p class="text-xs text-gray-600 mt-1">2X large shadow (modals/dropdowns)</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-inner</code>
+                            <p class="text-xs text-gray-600 mt-1">Inset shadow (inside edges)</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <code class="text-blue-600 font-mono text-sm">shadow-none</code>
+                            <p class="text-xs text-gray-600 mt-1">Remove shadow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opacity -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">👻 Opacity</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Control element transparency (0 = invisible, 100 = opaque):</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">opacity-0</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 0;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">opacity-25</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 0.25;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">opacity-50</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 0.5; (50% transparent)</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">opacity-75</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 0.75;</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <code class="text-green-600 font-mono text-sm">opacity-100</code>
+                            <p class="text-xs text-gray-600 mt-1">opacity: 1; (fully opaque)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backdrop Filter -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🔍 Backdrop Filter (Blur)</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Apply effects to element backdrop (what's behind it):</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">backdrop-blur-none</code>
+                            <p class="text-xs text-gray-600 mt-1">No blur</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">backdrop-blur-sm</code>
+                            <p class="text-xs text-gray-600 mt-1">Small blur (4px)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">backdrop-blur</code>
+                            <p class="text-xs text-gray-600 mt-1">Medium blur (12px)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <code class="text-purple-600 font-mono text-sm">backdrop-blur-lg</code>
+                            <p class="text-xs text-gray-600 mt-1">Large blur (16px)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blend Mode -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🎨 Mix Blend Mode</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Control how element blends with background:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">mix-blend-normal</code>
+                            <p class="text-xs text-gray-600 mt-1">Default blending</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">mix-blend-multiply</code>
+                            <p class="text-xs text-gray-600 mt-1">Darken by multiply</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">mix-blend-screen</code>
+                            <p class="text-xs text-gray-600 mt-1">Lighten by screen</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded border border-orange-200">
+                            <code class="text-orange-600 font-mono text-sm">mix-blend-overlay</code>
+                            <p class="text-xs text-gray-600 mt-1">Overlay effect</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">🖼️ Filters</h3>
+                    <p class="text-gray-700 mb-3 text-sm">Apply visual effects like blur, brightness, etc.:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">blur</code>
+                            <p class="text-xs text-gray-600 mt-1">filter: blur(4px);</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">brightness-75</code>
+                            <p class="text-xs text-gray-600 mt-1">Darker (0.75 brightness)</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">brightness-125</code>
+                            <p class="text-xs text-gray-600 mt-1">Lighter (1.25 brightness)</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">contrast-75</code>
+                            <p class="text-xs text-gray-600 mt-1">Less contrast</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">grayscale</code>
+                            <p class="text-xs text-gray-600 mt-1">Convert to black & white</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">sepia</code>
+                            <p class="text-xs text-gray-600 mt-1">Vintage sepia tone</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">saturate-150</code>
+                            <p class="text-xs text-gray-600 mt-1">More vibrant colors</p>
+                        </div>
+                        <div class="bg-cyan-50 p-3 rounded border border-cyan-200">
+                            <code class="text-cyan-600 font-mono text-sm">invert</code>
+                            <p class="text-xs text-gray-600 mt-1">Invert colors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Resources -->
+        <section class="mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">Resources & References</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded border border-blue-200">
+                    <p class="font-semibold text-blue-700 mb-2">Official Documentation</p>
+                    <p class="text-sm text-gray-600">tailwindcss.com - Complete reference & guides</p>
+                </div>
+                <div class="bg-white p-4 rounded border border-blue-200">
+                    <p class="font-semibold text-blue-700 mb-2">Tailwind UI</p>
+                    <p class="text-sm text-gray-600">Pre-built components library</p>
+                </div>
+                <div class="bg-white p-4 rounded border border-blue-200">
+                    <p class="font-semibold text-blue-700 mb-2">Headless UI</p>
+                    <p class="text-sm text-gray-600">Unstyled, accessible components</p>
+                </div>
+                <div class="bg-white p-4 rounded border border-blue-200">
+                    <p class="font-semibold text-blue-700 mb-2">Tailwind Play</p>
+                    <p class="text-sm text-gray-600">Online playground to experiment</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section class="bg-gray-900 text-white p-8 rounded-lg mt-12">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-lg font-semibold mb-2">Tailwind CSS - Build Anything</p>
+                <p class="text-gray-400 text-sm">A utility-first CSS framework for creating modern, responsive designs with ease.</p>
+                <p class="text-gray-500 text-xs mt-4">Created: March 2026</p>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="text-center py-8 text-gray-500 text-xs">
+        <p>Print this page (Ctrl+P) and save as PDF using your browser's print dialog</p>
+    </div>
+</body>
+</html>
