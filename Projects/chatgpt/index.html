@@ -7,39 +7,87 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-white h-screen flex">
-    <aside class="w-[245px] bg-slate-100 hidded md:flex flex-col gap-4 items-start px-2 pt-2 pb-5">
-        <div class="flex justify-between w-full">
-            <a href="/"
-             class="p-2 rounded hover:bg-slate-50 cursor-pointer inline-block">
-                <i class="fa-brands fa-openai w-5 h-5"></i>
+<body class="bg-white h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-gray-200 px-4 py-3 flex items-center justify-between bg-white">
+        <div class="flex items-center gap-3">
+            <a href="/" class="p-2 rounded hover:bg-gray-100 cursor-pointer">
+                <i class="fa-brands fa-openai text-xl"></i>
             </a>
-            <button>
-                <i class="fa-regular fa-chart-bar"></i>
-            </button>       
+            <button class="p-2 rounded hover:bg-gray-100">
+                <i class="fa-regular fa-window-maximize text-lg text-gray-600"></i>
+            </button>
+            <button class="px-3 py-1 rounded text-gray-700 font-medium hover:bg-gray-100 flex items-center gap-2">
+                ChatGPT <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
         </div>
-
-        <nav class="w-full flex-1">
-            <ul class="w-full">
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-brands fa-rocketchat"></i> New Chat</a></li>
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-brands fa-sistrix"></i> Search Chats</a></li>
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-solid fa-image"></i> Images</a></li>
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-brands fa-instalod"></i> Appps</a></li>
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-solid fa-microscope"></i> Deep research</a></li>
-                <li><a href="#" class="p-2 rounded-md flex gap-1 w-full items-center hover:bg-slate-200 text-base"><i class="fa-solid fa-heart"></i> Health</a></li>
-            </ul>
-        </nav>
-
-        <div class="flex flex-col gap-4">
-            <h3 class="text-sm font-bold">Get responses faster than other ai.</h3>
-            <p class="text-sm bg-slate-150">I am ChatGPT, an artificial intelligence assistant developed by OpenAI. I am designed to understand questions and provide helpful responses in natural language. roblems, generating ideas, and explaining complex topics in simple ways. 
-            <br>
-            <button class="border border-slate-400 p-2 rounded-2xl bg-white hover:bg-slate-100">Log In</button></p>
+        
+        <div class="flex items-center gap-3">
+            <button class="px-4 py-2 bg-black text-white rounded-full font-medium hover:bg-gray-900">Log in</button>
+            <button class="px-4 py-2 text-gray-900 border border-gray-300 rounded-full font-medium hover:bg-gray-50">Sign up for free</button>
+            <button class="p-2 rounded hover:bg-gray-100">
+                <i class="fa-regular fa-circle-question text-lg text-gray-600"></i>
+            </button>
         </div>
+    </header>
 
-    </aside>
-    <main">
+    <!-- Main Content -->
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-50 border-r border-gray-200 hidden md:flex flex-col px-4 pt-4 pb-8 gap-2">
+            <!-- Navigation -->
+            <nav class="flex-1">
+                <ul class="space-y-2">
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-regular fa-pen-to-square text-lg"></i> New chat</a></li>
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-solid fa-magnifying-glass text-lg"></i> Search chats</a></li>
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-solid fa-image text-lg"></i> Images</a></li>
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-solid fa-apps text-lg"></i> Apps</a></li>
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-solid fa-flask-vial text-lg"></i> Deep research</a></li>
+                    <li><a href="#" class="p-3 rounded-lg flex gap-3 items-center hover:bg-gray-200 transition text-gray-900"><i class="fa-solid fa-heart text-lg"></i> Health</a></li>
+                </ul>
+            </nav>
 
-    </main>
+            <!-- Bottom Section -->
+            <div class="pt-6 border-t border-gray-300 space-y-4">
+                <h3 class="text-sm font-bold text-gray-900">Get responses tailored to you</h3>
+                <p class="text-xs text-gray-600 leading-relaxed">Log in to get answers based on saved chats, plus create images and upload files.</p>
+                <button class="w-full border-2 border-gray-400 text-gray-900 font-semibold p-2 rounded-full bg-white hover:bg-gray-50 transition text-sm">Log in</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col items-center justify-center bg-white overflow-y-auto pb-20">
+            <!-- Welcome Text -->
+            <div class="text-center space-y-8">
+                <h1 class="text-4xl font-light text-gray-900">Where should we begin?</h1>
+
+                <!-- Input Area -->
+                <div class="relative w-96 max-w-2xl">
+                    <input 
+                        type="text" 
+                        placeholder="Ask anything" 
+                        class="w-full bg-gray-100 text-gray-900 placeholder-gray-500 rounded-3xl px-6 py-4 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                    >
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center gap-3">
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-microphone text-lg"></i>
+                            <span class="text-xs">Voice</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Text -->
+            <div class="absolute bottom-4 text-xs text-gray-600 text-center max-w-2xl px-4">
+                By messaging ChatGPT, an AI chatbot, you agree to our <a href="#" class="underline hover:text-gray-900">Terms</a> and have read our <a href="#" class="underline hover:text-gray-900">Privacy Policy</a>.
+            </div>
+        </main>
+    </div>
 </body>
 </html>
